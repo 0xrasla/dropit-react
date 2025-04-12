@@ -426,14 +426,16 @@ npx shadcn-ui@latest add card button`;
 
         <footer className="text-center text-gray-500 text-sm mt-20">
           <p>© {new Date().getFullYear()} DropIt - MIT License</p>
-          <a
-            href="https://github.com/0xrasla/dropit-react"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 hover:underline"
-          >
-            GitHub Repository
-          </a>
+          <p>
+            Made with ❤️ by{" "}
+            <a
+              className="text-blue-500"
+              target="_blank"
+              href="https://github.com/0xRasla"
+            >
+              0xRasla
+            </a>
+          </p>
         </footer>
       </div>
     </ThemeProvider>
