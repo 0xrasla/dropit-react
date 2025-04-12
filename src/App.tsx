@@ -1,10 +1,15 @@
 import { useState } from "react";
+import dropitdark from "../public/dropit-dark.png";
+import dropitlight from "../public/dropit.png";
 import { CopyToClipboard } from "./components/copy-to-clipboard";
 import { FileDropZone } from "./components/file-drop-zone";
+import { ThemeProvider, useTheme } from "./components/theme-provider";
 
 function App() {
   const [files, setFiles] = useState<File[]>([]);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  const { theme } = useTheme();
 
   const handleFilesSelected = (selectedFiles: File[]) => {
     setFiles(selectedFiles);
@@ -218,225 +223,227 @@ function MyComponent() {
 npx shadcn-ui@latest add card button`;
 
   return (
-    <div className="container mx-auto px-4 py-10 max-w-4xl">
-      <header className="text-center mb-10">
-        <img
-          src="/dropit.png"
-          alt="DropIt Logo"
-          className="mx-auto h-16 mb-4"
-        />
-        <h1 className="text-3xl font-bold mb-2">DropIt</h1>
-        <p className="text-gray-500">
-          A simple, beautiful React drag-and-drop file picker
-        </p>
-      </header>
-
-      <section className="mb-12">
-        <h2 className="text-xl font-semibold mb-4">Basic Example</h2>
-        <div className="mb-8">
-          <FileDropZone
-            onFilesSelected={handleFilesSelected}
-            acceptedFileTypes={[".png", ".jpg", ".jpeg", ".gif"]}
-            maxFiles={3}
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <div className="container mx-auto px-4 py-10 max-w-4xl">
+        <header className="text-center mb-10">
+          <img
+            src={theme == "dark" ? dropitlight : dropitdark}
+            alt="DropIt Logo"
+            className="mx-auto h-16 mb-4"
           />
-        </div>
+          <h1 className="text-3xl font-bold mb-2">DropIt</h1>
+          <p className="text-gray-500">
+            A simple, beautiful React drag-and-drop file picker
+          </p>
+        </header>
 
-        {imagePreview && (
-          <div className="mt-6 p-4 border rounded-md">
-            <h3 className="text-md font-medium mb-2">Preview:</h3>
-            <img
-              src={imagePreview}
-              alt="Preview"
-              className="max-h-60 rounded-md mx-auto"
+        <section className="mb-12">
+          <h2 className="text-xl font-semibold mb-4">Basic Example</h2>
+          <div className="mb-8">
+            <FileDropZone
+              onFilesSelected={handleFilesSelected}
+              acceptedFileTypes={[".png", ".jpg", ".jpeg", ".gif"]}
+              maxFiles={3}
             />
           </div>
-        )}
 
-        {files.length > 0 && (
-          <div className="mt-6">
-            <h3 className="text-md font-medium mb-2">File Details:</h3>
-            <div className="bg-gray-50 p-4 rounded-md overflow-auto">
-              <pre className="text-sm">
-                {JSON.stringify(
-                  files.map((file) => ({
-                    name: file.name,
-                    type: file.type,
-                    size: `${(file.size / 1024).toFixed(2)} KB`,
-                  })),
-                  null,
-                  2
-                )}
-              </pre>
+          {imagePreview && (
+            <div className="mt-6 p-4 border rounded-md">
+              <h3 className="text-md font-medium mb-2">Preview:</h3>
+              <img
+                src={imagePreview}
+                alt="Preview"
+                className="max-h-60 rounded-md mx-auto"
+              />
+            </div>
+          )}
+
+          {files.length > 0 && (
+            <div className="mt-6">
+              <h3 className="text-md font-medium mb-2">File Details:</h3>
+              <div className="bg-gray-50 p-4 rounded-md overflow-auto dark:bg-gray-800">
+                <pre className="text-sm">
+                  {JSON.stringify(
+                    files.map((file) => ({
+                      name: file.name,
+                      type: file.type,
+                      size: `${(file.size / 1024).toFixed(2)} KB`,
+                    })),
+                    null,
+                    2
+                  )}
+                </pre>
+              </div>
+            </div>
+          )}
+        </section>
+
+        <section className="mb-12">
+          <h2 className="text-xl font-semibold mb-4">Documentation</h2>
+
+          <div className="prose max-w-none space-y-6">
+            <div className="space-y-2">
+              <h3>Prerequisites</h3>
+              <p>
+                This component requires shadcn/ui components and Tailwind CSS.
+                Make sure you have them set up in your project.
+              </p>
+
+              <div className="relative">
+                <pre className="bg-gray-50 p-4 rounded-md overflow-auto dark:bg-gray-800">
+                  <CopyToClipboard text={installShadcnCommand} />
+                  <code>{installShadcnCommand}</code>
+                </pre>
+              </div>
+
+              <p className="text-sm text-gray-500 mt-2">
+                For more information on setting up shadcn/ui, visit the{" "}
+                <a
+                  href="https://ui.shadcn.com/docs/installation"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 hover:underline"
+                >
+                  official documentation
+                </a>
+                .
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <h3>Component Source Code</h3>
+              <p>
+                Copy and paste this code into{" "}
+                <code>components/file-drop-zone.tsx</code>:
+              </p>
+
+              <div className="relative">
+                <pre className="bg-gray-50 p-4 rounded-md overflow-auto text-sm dark:bg-gray-800 ">
+                  <CopyToClipboard text={componentCode} />
+                  <code className="language-typescript">{componentCode}</code>
+                </pre>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <h3>Usage Example</h3>
+              <p>Here's how to use the component in your application:</p>
+
+              <div className="relative">
+                <pre className="bg-gray-50 p-4 rounded-md overflow-auto text-sm dark:bg-gray-800">
+                  <CopyToClipboard text={usageCode} />
+                  <code className="language-typescript">{usageCode}</code>
+                </pre>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <h3>Props</h3>
+              <table className="w-full text-sm">
+                <thead>
+                  <tr>
+                    <th className="text-left p-2 border">Prop</th>
+                    <th className="text-left p-2 border">Type</th>
+                    <th className="text-left p-2 border">Default</th>
+                    <th className="text-left p-2 border">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="p-2 border">
+                      <code>onFilesSelected</code>
+                    </td>
+                    <td className="p-2 border">
+                      <code>(files: File[]) =&gt; void</code>
+                    </td>
+                    <td className="p-2 border">Required</td>
+                    <td className="p-2 border">
+                      Callback triggered when files are selected
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="p-2 border">
+                      <code>acceptedFileTypes</code>
+                    </td>
+                    <td className="p-2 border">
+                      <code>string[]</code>
+                    </td>
+                    <td className="p-2 border">
+                      <code>[]</code>
+                    </td>
+                    <td className="p-2 border">
+                      Array of accepted file extensions or MIME types
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="p-2 border">
+                      <code>maxFiles</code>
+                    </td>
+                    <td className="p-2 border">
+                      <code>number</code>
+                    </td>
+                    <td className="p-2 border">
+                      <code>1</code>
+                    </td>
+                    <td className="p-2 border">
+                      Maximum number of files that can be selected
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="p-2 border">
+                      <code>className</code>
+                    </td>
+                    <td className="p-2 border">
+                      <code>string</code>
+                    </td>
+                    <td className="p-2 border">
+                      <code>undefined</code>
+                    </td>
+                    <td className="p-2 border">
+                      Additional CSS classes to apply
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="space-y-2">
+              <h3>Additional Notes</h3>
+              <ul className="list-disc pl-6">
+                <li>
+                  Make sure you have the necessary icons from{" "}
+                  <code>lucide-react</code> installed.
+                </li>
+                <li>
+                  The component uses the <code>cn</code> utility from shadcn/ui
+                  for class name merging.
+                </li>
+                <li>
+                  You can customize the appearance by modifying the Tailwind
+                  classes.
+                </li>
+                <li>
+                  For handling file uploads, you'll need to implement your own
+                  upload logic.
+                </li>
+              </ul>
             </div>
           </div>
-        )}
-      </section>
+        </section>
 
-      <section className="mb-12">
-        <h2 className="text-xl font-semibold mb-4">Documentation</h2>
-
-        <div className="prose max-w-none space-y-6">
-          <div className="space-y-2">
-            <h3>Prerequisites</h3>
-            <p>
-              This component requires shadcn/ui components and Tailwind CSS.
-              Make sure you have them set up in your project.
-            </p>
-
-            <div className="relative">
-              <pre className="bg-gray-50 p-4 rounded-md overflow-auto">
-                <CopyToClipboard text={installShadcnCommand} />
-                <code>{installShadcnCommand}</code>
-              </pre>
-            </div>
-
-            <p className="text-sm text-gray-500 mt-2">
-              For more information on setting up shadcn/ui, visit the{" "}
-              <a
-                href="https://ui.shadcn.com/docs/installation"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 hover:underline"
-              >
-                official documentation
-              </a>
-              .
-            </p>
-          </div>
-
-          <div className="space-y-2">
-            <h3>Component Source Code</h3>
-            <p>
-              Copy and paste this code into{" "}
-              <code>components/file-drop-zone.tsx</code>:
-            </p>
-
-            <div className="relative">
-              <pre className="bg-gray-50 p-4 rounded-md overflow-auto text-sm">
-                <CopyToClipboard text={componentCode} />
-                <code className="language-typescript">{componentCode}</code>
-              </pre>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <h3>Usage Example</h3>
-            <p>Here's how to use the component in your application:</p>
-
-            <div className="relative">
-              <pre className="bg-gray-50 p-4 rounded-md overflow-auto">
-                <CopyToClipboard text={usageCode} />
-                <code className="language-typescript">{usageCode}</code>
-              </pre>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <h3>Props</h3>
-            <table className="w-full text-sm">
-              <thead>
-                <tr>
-                  <th className="text-left p-2 border">Prop</th>
-                  <th className="text-left p-2 border">Type</th>
-                  <th className="text-left p-2 border">Default</th>
-                  <th className="text-left p-2 border">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="p-2 border">
-                    <code>onFilesSelected</code>
-                  </td>
-                  <td className="p-2 border">
-                    <code>(files: File[]) =&gt; void</code>
-                  </td>
-                  <td className="p-2 border">Required</td>
-                  <td className="p-2 border">
-                    Callback triggered when files are selected
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-2 border">
-                    <code>acceptedFileTypes</code>
-                  </td>
-                  <td className="p-2 border">
-                    <code>string[]</code>
-                  </td>
-                  <td className="p-2 border">
-                    <code>[]</code>
-                  </td>
-                  <td className="p-2 border">
-                    Array of accepted file extensions or MIME types
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-2 border">
-                    <code>maxFiles</code>
-                  </td>
-                  <td className="p-2 border">
-                    <code>number</code>
-                  </td>
-                  <td className="p-2 border">
-                    <code>1</code>
-                  </td>
-                  <td className="p-2 border">
-                    Maximum number of files that can be selected
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-2 border">
-                    <code>className</code>
-                  </td>
-                  <td className="p-2 border">
-                    <code>string</code>
-                  </td>
-                  <td className="p-2 border">
-                    <code>undefined</code>
-                  </td>
-                  <td className="p-2 border">
-                    Additional CSS classes to apply
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div className="space-y-2">
-            <h3>Additional Notes</h3>
-            <ul className="list-disc pl-6">
-              <li>
-                Make sure you have the necessary icons from{" "}
-                <code>lucide-react</code> installed.
-              </li>
-              <li>
-                The component uses the <code>cn</code> utility from shadcn/ui
-                for class name merging.
-              </li>
-              <li>
-                You can customize the appearance by modifying the Tailwind
-                classes.
-              </li>
-              <li>
-                For handling file uploads, you'll need to implement your own
-                upload logic.
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <footer className="text-center text-gray-500 text-sm mt-20">
-        <p>© {new Date().getFullYear()} DropIt - MIT License</p>
-        <a
-          href="https://github.com/yourusername/dropit"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-500 hover:underline"
-        >
-          GitHub Repository
-        </a>
-      </footer>
-    </div>
+        <footer className="text-center text-gray-500 text-sm mt-20">
+          <p>© {new Date().getFullYear()} DropIt - MIT License</p>
+          <a
+            href="https://github.com/0xrasla/dropit-react"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline"
+          >
+            GitHub Repository
+          </a>
+        </footer>
+      </div>
+    </ThemeProvider>
   );
 }
 
