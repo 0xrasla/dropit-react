@@ -1,8 +1,7 @@
 import { useState } from "react";
-import dropitdark from "../public/dropit-dark.png";
-import dropitlight from "../public/dropit.png";
 import { CopyToClipboard } from "./components/copy-to-clipboard";
 import { FileDropZone } from "./components/file-drop-zone";
+import { Navbar } from "./components/navbar";
 import { ThemeProvider, useTheme } from "./components/theme-provider";
 
 function App() {
@@ -224,13 +223,9 @@ npx shadcn-ui@latest add card button`;
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="container mx-auto px-4 py-10 max-w-4xl">
-        <header className="text-center mb-10">
-          <img
-            src={theme == "dark" ? dropitlight : dropitdark}
-            alt="DropIt Logo"
-            className="mx-auto h-16 mb-4"
-          />
+      <div className="container mx-auto px-4 py-2 pb-10 max-w-4xl">
+        <Navbar />
+        <header className="text-center my-10">
           <h1 className="text-3xl font-bold mb-2">DropIt</h1>
           <p className="text-gray-500">
             A simple, beautiful React drag-and-drop file picker
