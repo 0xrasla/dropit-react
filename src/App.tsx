@@ -2,13 +2,11 @@ import { useState } from "react";
 import { CopyToClipboard } from "./components/copy-to-clipboard";
 import { FileDropZone } from "./components/file-drop-zone";
 import { Navbar } from "./components/navbar";
-import { ThemeProvider, useTheme } from "./components/theme-provider";
+import { ThemeProvider } from "./components/theme-provider";
 
 function App() {
   const [files, setFiles] = useState<File[]>([]);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-
-  const { theme } = useTheme();
 
   const handleFilesSelected = (selectedFiles: File[]) => {
     setFiles(selectedFiles);
