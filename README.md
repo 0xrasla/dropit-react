@@ -32,6 +32,11 @@ This component requires shadcn/ui components and Tailwind CSS. Make sure you hav
 # Install shadcn/ui and required components
 npx shadcn-ui@latest init
 npx shadcn-ui@latest add card button
+
+# Install clsx for class name merging
+bun i clsx
+# or with npm
+npm install clsx
 ```
 
 For more information on setting up shadcn/ui, visit the [official documentation](https://ui.shadcn.com/docs/installation).

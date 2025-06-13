@@ -194,7 +194,6 @@ export function FileDropZone({
         </div>
       </CardContent>
     </Card>
-  );
 }`;
 
   const usageCode = `import { FileDropZone } from './components/file-drop-zone';
@@ -286,6 +285,19 @@ npx shadcn-ui@latest add card button`;
                 <pre className="bg-gray-50 p-4 rounded-md overflow-auto dark:bg-gray-800">
                   <CopyToClipboard text={installShadcnCommand} />
                   <code>{installShadcnCommand}</code>
+                </pre>
+              </div>
+
+              <p className="mt-2">
+                <strong>
+                  Install <code>clsx</code> for class name merging (via{" "}
+                  <code>npm</code> or <code>bun</code>):
+                </strong>
+              </p>
+              <div className="relative">
+                <pre className="bg-gray-50 p-4 rounded-md overflow-auto dark:bg-gray-800">
+                  <CopyToClipboard text="npm install clsx\nbun i clsx" />
+                  <code>{`npm install clsx\nbun i clsx`}</code>
                 </pre>
               </div>
 
